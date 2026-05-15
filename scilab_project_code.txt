@@ -1,0 +1,237 @@
+// =====================================================
+// Sales Analytics & Inventory Optimization System
+// Developed in Scilab
+// =====================================================
+
+clc;
+clear;
+close;
+
+// -----------------------------------------------------
+// Step 1 : Load Dataset
+// -----------------------------------------------------
+
+filename = "Sales.csv";
+
+// Read CSV file
+data = csvRead(filename);
+
+// -----------------------------------------------------
+// Step 2 : Extract Required Columns
+// -----------------------------------------------------
+
+unitsSold   = data(:,7);
+unitPrice   = data(:,8);
+unitCost    = data(:,9);
+revenue     = data(:,10);
+cost        = data(:,11);
+profit      = data(:,12);
+
+// -----------------------------------------------------
+// Step 3 : Basic Calculations
+// -----------------------------------------------------
+
+totalRevenue = sum(revenue);
+totalCost    = sum(cost);
+totalProfit  = sum(profit);
+
+avgRevenue = mean(revenue);
+avgProfit  = mean(profit);
+avgUnits   = mean(unitsSold);
+
+// -----------------------------------------------------
+// Step 4 : Display Results
+// -----------------------------------------------------
+
+disp("====================================");
+disp(" SALES ANALYTICS REPORT ");
+disp("====================================");
+
+disp("Total Revenue : ");
+disp(totalRevenue);
+
+disp("Total Cost : ");
+disp(totalCost);
+
+disp("Total Profit : ");
+disp(totalProfit);
+
+disp("Average Revenue : ");
+disp(avgRevenue);
+
+disp("Average Profit : ");
+disp(avgProfit);
+
+disp("Average Units Sold : ");
+disp(avgUnits);
+
+// -----------------------------------------------------
+// Step 5 : Maximum and Minimum Analysis
+// -----------------------------------------------------
+
+maxProfit = max(profit);
+minProfit = min(profit);
+
+maxRevenue = max(revenue);
+minRevenue = min(revenue);
+
+disp("Maximum Profit : ");
+disp(maxProfit);
+
+disp("Minimum Profit : ");
+disp(minProfit);
+
+disp("Maximum Revenue : ");
+disp(maxRevenue);
+
+disp("Minimum Revenue : ");
+disp(minRevenue);
+
+// -----------------------------------------------------
+// Step 6 : Inventory Reorder Level Calculation
+// -----------------------------------------------------
+
+leadTime = 5;
+
+dailyDemand = avgUnits;
+
+reorderLevel = dailyDemand * leadTime;
+
+disp("Reorder Level : ");
+disp(reorderLevel);
+
+// -----------------------------------------------------
+// Step 7 : Profit Margin Calculation
+// -----------------------------------------------------
+
+profitMargin = (totalProfit / totalRevenue) * 100;
+
+disp("Profit Margin (%) : ");
+disp(profitMargin);
+
+// -----------------------------------------------------
+// Step 8 : Revenue Graph
+// -----------------------------------------------------
+
+scf(1);
+
+plot(revenue);
+
+title("Revenue Analysis");
+
+xlabel("Orders");
+
+ylabel("Revenue");
+
+// -----------------------------------------------------
+// Step 9 : Profit Graph
+// -----------------------------------------------------
+
+scf(2);
+
+plot(profit);
+
+title("Profit Analysis");
+
+xlabel("Orders");
+
+ylabel("Profit");
+
+// -----------------------------------------------------
+// Step 10 : Units Sold Bar Graph
+// -----------------------------------------------------
+
+scf(3);
+
+bar(unitsSold);
+
+title("Units Sold");
+
+xlabel("Orders");
+
+ylabel("Units");
+
+// -----------------------------------------------------
+// Step 11 : Pie Chart for Revenue vs Cost
+// -----------------------------------------------------
+
+scf(4);
+
+pie([totalRevenue totalCost]);
+
+title("Revenue and Cost Distribution");
+
+// -----------------------------------------------------
+// Step 12 : Histogram of Profit
+// -----------------------------------------------------
+
+scf(5);
+
+histplot(10, profit);
+
+title("Profit Distribution");
+
+// -----------------------------------------------------
+// Step 13 : Trend Analysis
+// -----------------------------------------------------
+
+trend = diff(profit);
+
+disp("Profit Trend Values : ");
+disp(trend);
+
+// -----------------------------------------------------
+// Step 14 : Correlation Analysis
+// -----------------------------------------------------
+
+corrValue = corr(unitsSold, profit);
+
+disp("Correlation between Units Sold and Profit : ");
+disp(corrValue);
+
+// -----------------------------------------------------
+// Step 15 : High Profit Orders
+// -----------------------------------------------------
+
+highProfit = find(profit > avgProfit);
+
+disp("Orders with High Profit : ");
+disp(highProfit);
+
+// -----------------------------------------------------
+// Step 16 : Low Profit Orders
+// -----------------------------------------------------
+
+lowProfit = find(profit < avgProfit);
+
+disp("Orders with Low Profit : ");
+disp(lowProfit);
+
+// -----------------------------------------------------
+// Step 17 : Inventory Status
+// -----------------------------------------------------
+
+if reorderLevel > 500 then
+    disp("Inventory Status : Reorder Needed");
+else
+    disp("Inventory Status : Stock Available");
+end
+
+// -----------------------------------------------------
+// Step 18 : Final Summary
+// -----------------------------------------------------
+
+disp("====================================");
+disp(" PROJECT COMPLETED SUCCESSFULLY ");
+disp("====================================");
+
+disp("Sales Analytics and Inventory");
+disp("Optimization System Executed");
+
+disp("Graphs Generated Successfully");
+
+disp("Thank You");
+
+// =====================================================
+// END OF PROJECT
+// =====================================================
